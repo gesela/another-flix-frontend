@@ -8,6 +8,7 @@ import Home from '../Home/Home'
 import Login from '../Login/Login'
 import SignUp from '../SignUp/SignUp'
 import Movies from '../Movies/Movies'
+import CreateMovie from '../CreateMovie/CreateMovie'
 // Services
 import * as usersService from '../../utilities/users-service'
 // CSS
@@ -20,7 +21,6 @@ const App = () => {
     if(usersService.getToken()) setUser(usersService.getUser())
   }, [])
 
-  console.log('hello', user)
   return (
     <div className="App">
       <Nav user={user} setUser={setUser} logOut={usersService.logOut} />
@@ -30,7 +30,8 @@ const App = () => {
         <Route path='/' element={ <Home /> } />
         <Route path='/login' element={ <Login setUser={setUser}/> } />
         <Route path='/signup' element={ <SignUp /> } />
-        <Route path='/movies' element={ user && <Movies />} />  
+        <Route path='/movies' element={ user && <Movies />} />
+        <Route path='/movies/create' element={ user && <CreateMovie />} />
       </Routes>
 
       <Footer />

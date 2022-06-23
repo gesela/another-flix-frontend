@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { login } from '../../utilities/users-service'
 
 const Login = ({ setUser }) => {
@@ -8,7 +8,8 @@ const Login = ({ setUser }) => {
         email: '',
         password: ''
     })
-const navigate = useNavigate()
+    const navigate = useNavigate()
+
     const handleChange = e => {
         setCredentials({ ...credentials, [e.target.name]: e.target.value })
     }
@@ -19,10 +20,13 @@ const navigate = useNavigate()
         try {
             const user = await login(credentials)
             // Once we get our user back, update our App.js user state with the user's firstname
-            // console.log(user)
+            console.log(user)
             if(user) {
                 setUser(user)
+                // Redirect to movies page after successful login
                 navigate('/movies')
+            } else {
+                throw new Error       
             }
         } catch(e) {
             setMessage('Log in Failed - Try Again')
