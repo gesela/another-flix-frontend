@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
 import { getMovies } from '../../utilities/movies-service'
-import { logOut } from '../../utilities/users-service'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './Movies.css'
 
 const Movies = () => {
     const [movies, setMovies] = useState([])
     // const [bool, setBool] = useState(false)
+
+    const navigate = useNavigate()
 
     // useEffect below will invoke after every render
     // useEffect(() => {
@@ -31,14 +32,19 @@ const Movies = () => {
 
     // console.log('MOVIES', movies)
     return (
-        <div className="h-100" id='movie-wrapper'>
+        <div  id='movie-wrapper'>
             <Link className="btn btn-primary" to='/movies/create'>Add Movie</Link>
 
             <div id='movie-container'>
                 {
                     movies.map(movie =>
-                        <div className="card" id='movie-card' key={movie._id}>
-                            <img src='https://i.imgur.com/hnHO3sn.jpg' className="card-img-top" alt={`Movie poster: ${movie.title}`} id='movie-poster' />
+                        <div 
+                            className="card" 
+                            id='movie-card' 
+                            key={movie._id}
+                            onClick={() => navigate(`/movies/${movie._id}`, { state: movie })}
+                        >
+                            <img src={movie.image} className="card-img-top" alt={`Movie poster: ${movie.title}`} id='movie-poster' />
                             <div className="card-body">
                                 <h5 className="card-title">{movie.title}</h5>
                                 <p className="card-text">{movie.plot}</p>
